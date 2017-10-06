@@ -1,0 +1,97 @@
+Logging started at 00:11:38 on 06 Oct 2017
+QIIME version: 1.9.1
+
+qiime_config values:
+pick_otus_reference_seqs_fp	/Users/yoshikivazquezbaeza/miniconda/envs/qiime-191/lib/python2.7/site-packages/qiime_default_reference/gg_13_8_otus/rep_set/97_otus.fasta
+sc_queue	all.q
+pynast_template_alignment_fp	/Users/yoshikivazquezbaeza/svn_sw/dep/gg_otus_4feb2011/rep_set/gg_97_otus_4feb2011_aligned.fasta
+cluster_jobs_fp	/Users/yoshikivazquezbaeza/git_sw/qiime/scripts/start_parallel_jobs.py
+assign_taxonomy_reference_seqs_fp	/Users/yoshikivazquezbaeza/svn_sw/dep/gg_13_5_otus/rep_set/97_otus.fasta
+torque_queue	friendlyq
+jobs_to_start	1
+denoiser_min_per_core	50
+assign_taxonomy_id_to_taxonomy_fp	/Users/yoshikivazquezbaeza/miniconda/envs/qiime-191/lib/python2.7/site-packages/qiime_default_reference/gg_13_8_otus/taxonomy/97_otu_taxonomy.txt
+temp_dir	/tmp/
+blastall_fp	blastall
+seconds_to_sleep	60
+
+parameter file values:
+make_emperor:verbose	True
+parallel:jobs_to_start	1
+
+Input file md5 sums:
+otu-table.noblanks.biom: bdcb3bc65496d7f29354d21463c61f0b
+mapping-file.alpha.txt: 4c4371de3f8e1c5ea68312fe373933ba
+gg-tree/97_otus.tree: b7e76593bce82913af1cfb06edf15732
+
+Executing commands.
+
+# Sample OTU table at 7400 seqs/sample command 
+single_rarefaction.py -i otu-table.noblanks.biom -o analysis/beta/otu-table.noblanks_even7400.biom -d 7400
+
+Stdout:
+
+Stderr:
+
+# Beta Diversity (weighted_unifrac) command 
+beta_diversity.py -i analysis/beta/otu-table.noblanks_even7400.biom -o analysis/beta --metrics weighted_unifrac  -t gg-tree/97_otus.tree 
+
+Stdout:
+
+Stderr:
+
+# Rename distance matrix (weighted_unifrac) command 
+mv analysis/beta/weighted_unifrac_otu-table.noblanks_even7400.txt analysis/beta/weighted_unifrac_dm.txt
+
+Stdout:
+
+Stderr:
+
+# Principal coordinates (weighted_unifrac) command 
+principal_coordinates.py -i analysis/beta/weighted_unifrac_dm.txt -o analysis/beta/weighted_unifrac_pc.txt 
+
+Stdout:
+
+Stderr:
+/Users/yoshikivazquezbaeza/miniconda/envs/qiime-191/lib/python2.7/site-packages/skbio/stats/ordination/_principal_coordinate_analysis.py:107: RuntimeWarning: The result contains negative eigenvalues. Please compare their magnitude with the magnitude of some of the largest positive eigenvalues. If the negative ones are smaller, it's probably safe to ignore them, but if they are large in magnitude, the results won't be useful. See the Notes section for more details. The smallest eigenvalue is -2.14739103621 and the largest is 55.2500741976.
+  RuntimeWarning
+
+# Make emperor plots, weighted_unifrac) command 
+make_emperor.py -i analysis/beta/weighted_unifrac_pc.txt -o analysis/beta/weighted_unifrac_emperor_pcoa_plot/ -m mapping-file.alpha.txt --verbose
+
+Stdout:
+
+Stderr:
+
+# Beta Diversity (unweighted_unifrac) command 
+beta_diversity.py -i analysis/beta/otu-table.noblanks_even7400.biom -o analysis/beta --metrics unweighted_unifrac  -t gg-tree/97_otus.tree 
+
+Stdout:
+
+Stderr:
+
+# Rename distance matrix (unweighted_unifrac) command 
+mv analysis/beta/unweighted_unifrac_otu-table.noblanks_even7400.txt analysis/beta/unweighted_unifrac_dm.txt
+
+Stdout:
+
+Stderr:
+
+# Principal coordinates (unweighted_unifrac) command 
+principal_coordinates.py -i analysis/beta/unweighted_unifrac_dm.txt -o analysis/beta/unweighted_unifrac_pc.txt 
+
+Stdout:
+
+Stderr:
+/Users/yoshikivazquezbaeza/miniconda/envs/qiime-191/lib/python2.7/site-packages/skbio/stats/ordination/_principal_coordinate_analysis.py:107: RuntimeWarning: The result contains negative eigenvalues. Please compare their magnitude with the magnitude of some of the largest positive eigenvalues. If the negative ones are smaller, it's probably safe to ignore them, but if they are large in magnitude, the results won't be useful. See the Notes section for more details. The smallest eigenvalue is -0.0408315093081 and the largest is 21.8434201167.
+  RuntimeWarning
+
+# Make emperor plots, unweighted_unifrac) command 
+make_emperor.py -i analysis/beta/unweighted_unifrac_pc.txt -o analysis/beta/unweighted_unifrac_emperor_pcoa_plot/ -m mapping-file.alpha.txt --verbose
+
+Stdout:
+
+Stderr:
+
+
+Logging stopped at 00:15:45 on 06 Oct 2017
