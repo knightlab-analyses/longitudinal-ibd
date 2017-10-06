@@ -56,7 +56,7 @@ def main(otu_fp, metadata_fp, tree_fp, samples_per_subject, method):
         if n.length is None:
             n.length = 0
 
-    mf['DAYS_SINCE_EPOCH'] = pd.to_numeric(mf['DAYS_SINCE_EPOCH'],
+    mf['days_since_epoch'] = pd.to_numeric(mf['days_since_epoch'],
                                            errors='coerce')
 
     if method == 'gg-smaller':
@@ -65,7 +65,7 @@ def main(otu_fp, metadata_fp, tree_fp, samples_per_subject, method):
         pts_lchns = {str(int(i)) for i in set(otus.Proteos) | set(otus.Lachnos) if not np.isnan(i)}
 
     think = Sculptor(biom_table=bt, mapping_file=mf, tree=tree,
-                     gradient='DAYS_SINCE_EPOCH', trajectory='HOST_SUBJECT_ID',
+                     gradient='days_since_epoch', trajectory='host_subject_id',
                      name=method)
 
 
@@ -112,32 +112,32 @@ def main(otu_fp, metadata_fp, tree_fp, samples_per_subject, method):
 
             # get a column with IBD status for all the subjects
             combined_features.dropna(axis=1, how='any', inplace=True)
-            classes = think.mapping_file.groupby(['HOST_SUBJECT_ID', 'IBD'],
-                                        as_index=False).aggregate(np.sum).set_index('HOST_SUBJECT_ID',
+            classes = think.mapping_file.groupby(['host_subject_id', 'ibd'],
+                                        as_index=False).aggregate(np.sum).set_index('host_subject_id',
                                                                                     inplace=False)
-            combined_features['IBD'] = classes['IBD']
+            combined_features['ibd'] = classes['ibd']
         # one sample with our model
         elif N_samples == 1:
             alpha = think.alpha_table(['faith_pd', 'chao1', 'brillouin_d'], [abs_energy])
             features = think.biom_table.filter(ids_to_keep=features_to_keep, axis='observation')
             features = features.norm(inplace=False).to_dataframe().to_dense().T
-            features['HOST_SUBJECT_ID'] = think.mapping_file['HOST_SUBJECT_ID']
-            features['IBD'] = think.mapping_file['IBD']
-            features.set_index('HOST_SUBJECT_ID', inplace=True)
+            features['host_subject_id'] = think.mapping_file['host_subject_id']
+            features['ibd'] = think.mapping_file['ibd']
+            features.set_index('host_subject_id', inplace=True)
             combined_features = pd.concat([features, alpha], axis=1)
         # one sample with only relative abundances
         elif N_samples == 0:
             combined_features = think.biom_table.norm(inplace=False).to_dataframe().to_dense().T
-            combined_features['IBD'] = think.mapping_file['IBD']
+            combined_features['ibd'] = think.mapping_file['ibd']
 
         # get a list of the columns that will be used as features
         no_ibd = combined_features.columns.tolist()
         # no_ibd = smaller.columns.tolist()
-        no_ibd.remove('IBD')
+        no_ibd.remove('ibd')
         ## END feature creation
 
         X_train, X_test, Y_train, Y_test = train_test_split(combined_features[no_ibd],
-                                                            combined_features['IBD'],
+                                                            combined_features['ibd'],
                                                             test_size=0.35)
 
         clf = RandomForestClassifier(n_estimators=500)
@@ -146,7 +146,7 @@ def main(otu_fp, metadata_fp, tree_fp, samples_per_subject, method):
 
         # Compute ROC curve and area the curve
         fpr, tpr, thresholds = roc_curve(Y_test, probas_[:, 1],
-                                         pos_label='Healthy Controls')
+                                         pos_label='Crohns')
 
         # nans ruin the ROC curve, this happens when the train/test split
         # only includes one class in the training set

@@ -1,12 +1,64 @@
 # Guiding longitudinal sampling in inflammatory bowel diseases cohorts
 
-### [Supplementary Materials](Supplemental-Materials.ipynb)
+## [Supplementary Materials](Supplemental-Materials.ipynb)
 
 This repository includes all the source code, tests and notebooks to generate
 the figures used in the (Vazquez-Baeza et al. 20XX).
 
-The raw sequences for this study are not provided as part of this repository,
-instead we point to Qiita where, raw sequences, quality-controlled data, OTU
-tables and sample information are all made publicly available. Whenever
-possible we include data that will make the analysis easier (for example, alpha
-and beta diversity data is included, but can also be re-computed).
+### Notes to the reader
+
+While we do not provide all the data in this repository we provide the BIOM
+tables, sample information, alpha and beta diversity tables. The raw and
+quality controlled sequences from which the BIOM table originates can be found
+in [Qiita study 2538](https://qiita.ucsd.edu/study/description/2538) (remember
+to login).
+
+#### Notebooks
+
+This is a brief description of computations contained in each notebook. The
+first three sections depend on QIIME 1.9.1 and Python 2, the fourth section
+depends on the scientific python stack and Python 3. Environment files used
+to create these can be found in the `env-files` directory.
+
+##### Setup
+
+In the notebook [**01.1-setup.ipynb**](01.1-setup.ipynb), we remove blank
+samples, add alpha and beta diversity and add some of this information to
+the metadata so it can be used in other notebooks. While we include the tabular
+files with the collated alpha diversity, intermediate files and plots are
+not included.
+
+##### Alpha
+
+In the notebook [**02.1-alpha-diversity.ipynb**](02.1-alpha-diversity.ipynb), we
+calculate a few measures of alpha diversity, and compare distributions by
+diagnosis of IBD and whether or not the subjects underwent surgery.
+
+##### Beta
+
+There are three steps to the use of beta diversity, first in
+[**03.1-beta-diversity-stats.ipynb**](03.1-beta-diversity-stats.ipynb) we
+compare the groups using PERMANOVA and ANOSIM, then in
+[**03.2-beta-diversity-distributions.ipynb**](03.2-beta-diversity-distributions.ipynb)
+we calculate the beta-diversity stability over time, and finally in
+[**03.3-beta-diversity-regressions.ipynb**](03.3-beta-diversity-regressions.ipynb)
+we compare the microbial stability to the microbial dysbiosis index.
+
+##### Classification
+
+This section is the most computationally expensive. While prototyping, the
+tests were executed through the Jupyter notebook interface, however to test the
+pipeline with a reasonable number of iterations, we ran the comparisons
+using a dedicated compute cluster using the [script provided
+here](featlib/pipeline.py).
+
+In [**04.1-classification.ipynb**](04.1-classification.ipynb) and
+[**04.2-classification-jansson.ipynb**](04.2-classification-jansson.ipynb), we
+compare how good of a classification can you achieve depending on the number
+of samples used per subject. The main difference between these two noebooks is
+the data they use.
+
+The ROC curves used in the paper are also included here, see
+[roc-curves/gg/](roc-curves/gg/), while we expect to see some variation from
+re-running this, we've observed that the same trends hold (as reported in the
+paper). 
