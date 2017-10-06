@@ -20,6 +20,10 @@ first three sections depend on QIIME 1.9.1 and Python 2, the fourth section
 depends on the scientific python stack and Python 3. Environment files used
 to create these can be found in the `env-files` directory.
 
+Note, for the QIIME 1.9.1 environment, you'll also need to install from source
+the [diptest package](https://github.com/alimuldal/diptest), these notebooks
+used the repository at SHA-1 bf005a8662d6e866842d5c0f387a011f773c5b04.
+
 ##### Setup
 
 In the notebook [**01.1-setup.ipynb**](01.1-setup.ipynb), we remove blank
