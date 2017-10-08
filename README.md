@@ -26,26 +26,27 @@ used the repository at SHA-1 bf005a8662d6e866842d5c0f387a011f773c5b04.
 
 ##### Setup
 
-In the notebook [**01.1-setup.ipynb**](01.1-setup.ipynb), we remove blank
-samples, add alpha and beta diversity and add some of this information to
+In the notebook [**01.1-setup.ipynb**](notebooks/01.1-setup.ipynb), we remove
+blank samples, add alpha and beta diversity and add some of this information to
 the metadata so it can be used in other notebooks. While we include the tabular
-files with the collated alpha diversity, intermediate files and plots are
-not included.
+files with the collated alpha diversity, intermediate files and plots are not
+included.
 
 ##### Alpha
 
-In the notebook [**02.1-alpha-diversity.ipynb**](02.1-alpha-diversity.ipynb), we
+In the notebook
+[**02.1-alpha-diversity.ipynb**](notebooks/02.1-alpha-diversity.ipynb), we
 calculate a few measures of alpha diversity, and compare distributions by
 diagnosis of IBD and whether or not the subjects underwent surgery.
 
 ##### Beta
 
 There are three steps to the use of beta diversity, first in
-[**03.1-beta-diversity-stats.ipynb**](03.1-beta-diversity-stats.ipynb) we
-compare the groups using PERMANOVA and ANOSIM, then in
-[**03.2-beta-diversity-distributions.ipynb**](03.2-beta-diversity-distributions.ipynb)
+[**03.1-beta-diversity-stats.ipynb**](notebooks/03.1-beta-diversity-stats.ipynb)
+we compare the groups using PERMANOVA and ANOSIM, then in
+[**03.2-beta-diversity-distributions.ipynb**](notebooks/03.2-beta-diversity-distributions.ipynb)
 we calculate the beta-diversity stability over time, and finally in
-[**03.3-beta-diversity-regressions.ipynb**](03.3-beta-diversity-regressions.ipynb)
+[**03.3-beta-diversity-regressions.ipynb**](notebooks/03.3-beta-diversity-regressions.ipynb)
 we compare the microbial stability to the microbial dysbiosis index.
 
 ##### Classification
@@ -54,15 +55,15 @@ This section is the most computationally expensive. While prototyping, the
 tests were executed through the Jupyter notebook interface, however to test the
 pipeline with a reasonable number of iterations, we ran the comparisons
 using a dedicated compute cluster using the [script provided
-here](featlib/pipeline.py).
+here](notebooks/featlib/pipeline.py).
 
-In [**04.1-classification.ipynb**](04.1-classification.ipynb) and
-[**04.2-classification-jansson.ipynb**](04.2-classification-jansson.ipynb), we
-compare how good of a classification can you achieve depending on the number
+In [**04.1-classification.ipynb**](notebooks/04.1-classification.ipynb) and
+[**04.2-classification-jansson.ipynb**](notebooks/04.2-classification-jansson.ipynb),
+we compare how good of a classification can you achieve depending on the number
 of samples used per subject. The main difference between these two noebooks is
 the data they use.
 
 The ROC curves used in the paper are also included here, see
-[roc-curves/gg/](roc-curves/gg/), while we expect to see some variation from
-re-running this, we've observed that the same trends hold (as reported in the
-paper). 
+[notebooks/roc-curves/gg/](notebooks/roc-curves/gg/), while we expect to see
+some variation from re-running this, we've observed that the same trends hold
+(as reported in the paper).
