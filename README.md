@@ -13,6 +13,8 @@ quality controlled sequences from which the BIOM table originates can be found
 in [Qiita study 2538](https://qiita.ucsd.edu/study/description/2538) (remember
 to login).
 
+**EBI Accession**: PRJEB23009 (ERP104742).
+
 #### Notebooks
 
 This is a brief description of computations contained in each notebook. The
